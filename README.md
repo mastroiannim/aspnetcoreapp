@@ -39,7 +39,7 @@ docker container run --name app2 --rm \
 	mcr.microsoft.com/dotnet/sdk:5.0 \
 	dotnet watch run \
 
-# verifichiamo che entrambe le web applications dovrebbero essere in esecuzione. 
+# verifichiamo che entrambe le web applications siano in esecuzione. 
 docker ps -a
 
 # configuriamo una rete per il load balancer
