@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace aspnetcoreapp.Pages
 {
@@ -19,7 +20,7 @@ namespace aspnetcoreapp.Pages
 
         public void OnGet()
         {
-		_logger.LogInformation("OnGet running at: {time}", DateTimeOffset.Now);
+		    _logger.LogInformation("OnGet running at: {host}", Dns.GetHostName());
         }
     }
 }

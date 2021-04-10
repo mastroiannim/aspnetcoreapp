@@ -1,11 +1,12 @@
 version: '3.4'
 
 services:
-  dotnet-watch-docker-example:
-    container_name: dotnet_watch_docker_example
+  aspnetcoreapp:
+    container_name: app1
     image: mcr.microsoft.com/dotnet/sdk:5.0
     ports:
       - 5000:5000
+      - 5001:5001
     volumes:
       - ./:/app
       - ./Https:/root/.aspnet/https/    #dotnet dev-certs https --clean && dotnet dev-certs https --trust

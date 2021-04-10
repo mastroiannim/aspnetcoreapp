@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +22,16 @@ namespace aspnetcoreapp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-		            webBuilder.UseUrls("http://*:5000");
+                    //webBuilder.UseUrls("http://*:5000");
+                    webBuilder.ConfigureKestrel(serverOptions =>
+                     {
+                         serverOptions.Listen(IPAddress.Any, 5000);
+                         serverOptions.Listen(IPAddress.Any, 5001,
+                             listenOptions =>
+                             {
+                                 listenOptions.UseHttps("Https/cert.pfx", "passwd");
+                             });
+                     });
                 });
     }
 }
