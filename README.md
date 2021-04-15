@@ -59,7 +59,7 @@ docker container run --name app2 --rm \
 
 ## mandiamo in esecuzione il balancer e colleghiamolo alla rete
 ```
-docker run --name nginx --net load_balancing_network 
+docker run --name nginx --net load_balancing_network \
 	-v ${PWD}/nginx.conf:/etc/nginx/nginx.conf \
 	-p 8080:80 \
 	-P \
