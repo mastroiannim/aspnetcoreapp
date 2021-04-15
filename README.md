@@ -7,7 +7,8 @@
 ## cambiare la dir corrente con quella del nuovo progetto appena clonato
 `cd aspnetcoreapp`
 ## alternativa 1) eseguire l'app in un container
-```docker container run --name app1 --rm \
+```
+docker container run --name app1 --rm \
 	-v ${PWD}:/app \
 	-v ${PWD}/Https:/root/.aspnet/https/ \
 	-v ${PWD}/DataProtection-Keys:/root/.aspnet/DataProtection-Keys \
@@ -21,7 +22,8 @@
 ## alternativa 2) in alternativa eseguire due container per fare load balancing con nginx
 
 ## eseguire l'app in un primo container
-```docker container run --name app1 --rm \
+```
+docker container run --name app1 --rm \
 	-v ${PWD}:/app \
 	-v ${PWD}/Https:/root/.aspnet/https/ \
 	-v ${PWD}/DataProtection-Keys:/root/.aspnet/DataProtection-Keys \
@@ -32,7 +34,8 @@
 ```
 
 ## eseguire l'app in un secondo container
-```docker container run --name app2 --rm \
+```
+docker container run --name app2 --rm \
 	-v ${PWD}:/app \
 	-v ${PWD}/Https:/root/.aspnet/https/ \
 	-v ${PWD}/DataProtection-Keys:/root/.aspnet/DataProtection-Keys \
@@ -55,7 +58,8 @@
 `docker network connect load_balancing_network app2`
 
 ## mandiamo in esecuzione il balancer e colleghiamolo alla rete
-```docker run --name nginx --net load_balancing_network 
+```
+docker run --name nginx --net load_balancing_network 
 	-v ${PWD}/nginx.conf:/etc/nginx/nginx.conf \
 	-p 8080:80 \
 	-P \
