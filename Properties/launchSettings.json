@@ -1,6 +1,14 @@
 {
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:5000/",
+      "sslPort": 0
+    }
+  },
   "profiles": {
-    "run": {
+    "docker-compose": {
       "commandName": "Executable",
       "executablePath": "docker",
       "commandLineArgs": "compose up",
@@ -17,6 +25,11 @@
       "httpPort": 80,
       "useSSL": false,
       "sslPort": 443
+    },
+    "IIS": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:5000/"
     }
   }
 }
