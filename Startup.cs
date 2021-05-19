@@ -47,10 +47,10 @@ namespace aspnetcoreapp
 
             app.UseAuthorization();
 
-            /*app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-            });*/
+            });
 
             app.UseEndpoints(endpoints =>
             {
