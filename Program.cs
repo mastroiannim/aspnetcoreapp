@@ -18,21 +18,22 @@ namespace aspnetcoreapp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    var configuration = new ConfigurationBuilder()
-                            .AddEnvironmentVariables()
-                            .Build();
+                    var configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
                     var PORT = configuration.GetSection("PORT").Value;
-                    Console.WriteLine("PORT from Env Var to convert '{0}'.", PORT);
-                    int httpPort;
-                    try
+
+                    if(PORT == null)
                     {
-                        httpPort = Int32.Parse(PORT);
+                        Console.Write("reading PORT locally.. ");
+                        configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+                        PORT = configuration.GetConnectionString("PORT");
                     }
-                    catch (System.Exception)
-                    {
-                        Console.WriteLine("Unable to convert '{0}' using 5000.", PORT);
-                        httpPort = 5000;
-                    }
+                    else
+                        Console.WriteLine("reading from Environment *heroku");
+
+                    Console.WriteLine("PORT={0}", PORT);
+
+                    int httpPort = Int32.Parse(PORT);
+
                     webBuilder.UseUrls("http://*:"+httpPort);
                  
                 });
