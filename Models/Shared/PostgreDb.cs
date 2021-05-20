@@ -10,10 +10,13 @@ namespace aspnetcoreapp.Models
 {
     public class PostgreDb
     {
-        public static string connectionString;
+        private static string connectionString;
 
         public static string GetConnectionStringFromHerokuEnv()
         {
+            if (connectionString != null)
+                return connectionString;
+
             var configuration = new ConfigurationBuilder().AddEnvironmentVariables().Build();
             string DATABASE_URL = configuration.GetSection("DATABASE_URL").Value;
 
