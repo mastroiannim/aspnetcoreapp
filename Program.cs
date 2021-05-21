@@ -1,7 +1,10 @@
 using System;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace aspnetcoreapp
 {
@@ -10,7 +13,29 @@ namespace aspnetcoreapp
         public static void Main(string[] args)
         {
             Console.WriteLine("START");
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            MigrateDatabase(host);
+
+            host.Run();
+        }
+
+        private static void MigrateDatabase(IHost host)
+        {
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var logger = services.GetRequiredService<ILogger<Program>>();
+
+            logger.LogInformation("MigrateDatabase");
+            try
+            {
+                var context = services.GetRequiredService<Models.PostgreDbContext>();
+                context.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred creating the DB.");
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
