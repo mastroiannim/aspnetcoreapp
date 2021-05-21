@@ -35,7 +35,7 @@ namespace aspnetcoreapp
             return HtmlEncoder.Default.Encode($"Hello {name}, ID is: {ID}");
         }*/
 
-        public async Task<IActionResult> EditById(Models.MessageModel message)
+        public IActionResult EditById(Models.MessageModel message)
         {
             int id = message.Id;
             string name = message.Name;
