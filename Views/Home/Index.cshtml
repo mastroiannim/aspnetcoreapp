@@ -7,29 +7,21 @@
 
 @using (Html.BeginForm("Hello", "Home", FormMethod.Post))
 {
-<table cellpadding="0" cellspacing="0">
-    <tr>
-        <th colspan="2" align="center">New Message</th>
-    </tr>
-    <tr>
-        <td>Name: </td>
-        <td>
-            @Html.TextBoxFor(m => m.Name)
-        </td>
-    </tr>
-
-    <tr>
-        <td>Message: </td>
-        <td>
-            @Html.TextBoxFor(m => m.Text)
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><input type="submit" value="Add a message" /></td>
-    </tr>
-    <tr>
-        <a href="/Home/Hello">All Messages</a>
-    </tr>
-</table>
+        <div class="form-group row">
+            <label for="Name" class="col-4 col-form-label">Name</label>
+            <div class="col-8">
+                <input id="Name" name="Name" placeholder="your name" type="text" class="form-control" required="required" value="@Html.ValueFor(m => m.Name)">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Message" class="col-4 col-form-label">Message</label>
+            <div class="col-8">
+                <input id="Text" name="Text" placeholder="leave a message" type="text" class="form-control" value="@Html.ValueFor(m => m.Text)">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-4 col-8">
+                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
 }

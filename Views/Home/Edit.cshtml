@@ -7,26 +7,23 @@
 
 @using (Html.BeginForm("EditById", "Home", FormMethod.Post))
 {
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th colspan="2" align="center">Message Details</th>
-        </tr>
-        <tr>
-            <td>Name: </td>
-            <td>
-                @Html.TextBoxFor(m => m.Name)
-            </td>
-        </tr>
+    <div class="form-group row">
+        <label for="Name" class="col-4 col-form-label">Name</label>
+        <div class="col-8">
+            <input id="Name" name="Name" placeholder="yourn name" type="text" class="form-control" required="required" value="@Html.ValueFor(m => m.Name)">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Message" class="col-4 col-form-label">Message</label>
+        <div class="col-8">
+            <input id="Text" name="Text" placeholder="leave a message" type="text" class="form-control" value="@Html.ValueFor(m => m.Text)">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="offset-4 col-8">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
 
-        <tr>
-            <td>Message: </td>
-            <td>
-                @Html.TextBoxFor(m => m.Text)
-            </td>
-        </tr>
-        <tr>
-            <td><input type="hidden" name="Id" value="@Model.Id" /></td>
-            <td><input type="submit" value="Submit" /></td>
-        </tr>
-    </table>
 }

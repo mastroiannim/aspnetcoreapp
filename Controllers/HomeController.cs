@@ -41,22 +41,13 @@ namespace aspnetcoreapp
             string name = message.Name;
             string text = message.Text;
 
-            using (var db = _context)
-            {
-                // Note: This sample requires the database to be created before running.
+            using var db = _context;
 
-                // Create
-                db.Update(new Models.MessageModel { Id = id, Name = name, Text = text });
-                db.SaveChanges();
+            // Update
+            db.Update(new Models.MessageModel { Id = id, Name = name, Text = text });
+            db.SaveChanges();
 
-                // Read
-                var allMessages = await db.Messages
-                    .OrderByDescending(b => b.Id)
-                    .ToListAsync();
-
-                return View("Hello", allMessages);
-
-            }
+            return RedirectToAction("Hello");
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -66,7 +57,11 @@ namespace aspnetcoreapp
                 return NotFound();
             }
 
-            var message = await _context.Messages.FindAsync(id);
+            using var db = _context;
+
+            //Find
+
+            var message = await db.Messages.FindAsync(id);
             if (message == null)
             {
                 return NotFound();
@@ -83,7 +78,11 @@ namespace aspnetcoreapp
                 return NotFound();
             }
 
-            var message = await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+            using var db = _context;
+
+            //Find
+
+            var message = await db.Messages.FirstOrDefaultAsync(m => m.Id == id);
             if (message == null)
             {
                 return NotFound();
@@ -99,22 +98,24 @@ namespace aspnetcoreapp
                 return NotFound();
             }
 
-            using (var db = _context)
-            {
-                var message = await db.Messages.FindAsync(id);
-                db.Messages.Remove(message);
-                await db.SaveChangesAsync();
-                return View("Hello", await db.Messages.ToListAsync());
-            }
+            using var db = _context;
+
+            // Remove
+
+            var message = await db.Messages.FindAsync(id);
+            db.Messages.Remove(message);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Hello");
         }
 
         // GET: /Home/Hello/
         public async Task<IActionResult> Hello()
         {
-            using (var db = _context)
-            {
-                return View("Hello", await db.Messages.ToListAsync());
-            }
+            using var db = _context;
+
+            //List all
+
+            return View("Hello", await db.Messages.ToListAsync());
 
         }
         [HttpPost]
@@ -124,22 +125,19 @@ namespace aspnetcoreapp
             string name = message.Name;
             string text = message.Text;
 
-            using (var db = _context)
-            {
-                // Note: This sample requires the database to be created before running.
+            using var db = _context;
+            // Note: This sample requires the database to be created before running.
 
-                // Create
-                db.Add(new Models.MessageModel { Name = name, Text = text });
-                db.SaveChanges();
+            // Create
+            db.Add(new Models.MessageModel { Name = name, Text = text });
+            db.SaveChanges();
 
-                // Read
-                var allMessages = await db.Messages
-                    .OrderByDescending(b => b.Id)
-                    .ToListAsync();
+            // Read
+            var allMessages = await db.Messages
+                .OrderByDescending(b => b.Id)
+                .ToListAsync();
 
-                return View("Hello", allMessages);
-
-            }
+            return View("Hello", allMessages);
 
         }
     }

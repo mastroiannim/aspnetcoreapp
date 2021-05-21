@@ -4,29 +4,5 @@
     ViewData["Title"] = "Details";
 }
 
+@Html.DisplayTextFor(m => m.Name) say @Html.DisplayTextFor(m => m.Text)
 
-
-    <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th colspan="2" align="center">Message Details</th>
-        </tr>
-        <tr>
-            <td>Name: </td>
-            <td>
-                @Html.DisplayTextFor(m => m.Name)
-            </td>
-        </tr>
-
-        <tr>
-            <td>Message: </td>
-            <td>
-                @Html.DisplayTextFor(m => m.Text)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="/Home/Hello">Back</a> |
-                <a href="/Home">Add</a>
-            </td>
-        </tr>
-    </table>
